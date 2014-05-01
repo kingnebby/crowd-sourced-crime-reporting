@@ -1,0 +1,174 @@
+// Place all the styles related to the welcome controller here.
+// They will automatically be included in application.css.
+// You can use Sass (SCSS) here: http://sass-lang.com/
+
+$header-text-color: #fff;
+$header-bg-color: #4F4F4F;
+$body-bg-color: #ddd;
+$float-bg-color: #eee;
+$default-center-width: 800px;
+
+body {
+  font-size: 13px;
+  line-height: 18px;
+  font-family: verdana, arial, helvetica, sans-serif;
+  background-color: #ddd;
+  margin: 50px;
+}
+
+table {
+
+}
+
+table.summary {
+  font-size: 1em;
+  border:1px solid #000;
+  th {
+    border: 1px outset #ccc;
+    background: #bce;
+  }
+  td {
+    background: #eff;
+  }
+}
+
+#reportsdiv {
+  padding:0px;
+  min-width: 100%;
+  min-height: 200px;
+  table {
+    border-collapse: collapse;
+    border-radius: 5px;
+    box-shadow: #bbb 0px 0px 4px 4px;
+    width: 100%;
+    th {
+      padding:0px;
+    }
+    td {
+      font-size: 0.8em;
+      padding: 0px;
+    }
+  }
+}
+
+#singlereport {
+  border-collapse: collapse;
+  border-radius: 5px;
+  box-shadow: #bbb 0px 0px 4px 4px;
+  font-size: 2em;
+  th {
+    padding: 0.5em;
+  }
+  td {
+    padding: 0.5em;
+  }
+}
+
+header {
+  background-color: $header-bg-color;
+  color: $header-text-color;
+  position: absolute;
+  height: 36px;
+  top: 0;
+  left: 0;
+  right: 0;
+  font-size: 18px;
+  line-height: 36px;
+  font-weight: bold;
+  padding-left: 15px;
+
+  a {
+    text-decoration: none;
+    color: $header-text-color;
+  }
+}
+
+body footer {
+  font-variant: small-caps;
+  text-transform: none;
+  text-align: center;
+  position: relative;
+  top: 100px;
+}
+
+#controls {
+  width: $default-center-width;
+  text-align: center;
+  margin: auto;
+  font-size: 14pt;
+  padding: 10px;
+}
+
+#reportsdiv {
+  width: $default-center-width;
+  margin: auto;
+}
+
+#new-crime-report {
+  position: fixed;
+  top: 50px;
+  right: 10px;
+}
+
+legend {
+  background: $header-bg-color;
+  color: $header-text-color;
+  border-radius: 4px;
+  font-size: 14px;
+}
+
+form fieldset {
+  background: $float-bg-color;
+  p {
+   text-align: right; 
+  }
+}
+
+input.ng-invalid.ng-dirty {
+  border: 1px solid #f44;
+}
+
+textarea.ng-invalid.ng-dirty {
+  border: 1px solid #f44;
+}
+
+#notice {
+  color: green;
+}
+
+.animate-show {
+  -webkit-transition:all linear 0.5s;
+  transition:all linear 0.5s;
+}
+ 
+.animate-show.ng-hide-add,
+.animate-show.ng-hide-remove {
+  display:block!important;
+}
+ 
+.animate-show.ng-hide {
+  opacity:0;
+  padding:0 10px;
+}
+
+.deletebtn {
+  font-size: 0.8em;
+}
+
+a:hover {
+  text-decoration: underline;
+}
+
+.angular-google-map-container {
+  border: 3px solid #999;
+  margin-top: 10px;
+  margin-right: 10px;
+  height: 600px;
+  width: 800px;
+}
+
+fieldset.mapvaluesfieldset {
+  min-height: 600px;
+  min-width: 200px;
+  background: $float-bg-color;
+}

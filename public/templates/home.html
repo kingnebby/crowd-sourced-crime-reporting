@@ -1,0 +1,103 @@
+<div id="controls">
+	<label>Filter results: </label>
+	<input type="text" ng-model="results" placeholder="filter results" title="What are you looking for?">
+	<!-- This seems to be in the global namespace which probably isn't a good idea -->
+	<label class="actionbutton" ng-click="switchBtnText()" title="Create new Crime Report entry">{{btnText}}</label>
+</div>
+
+<!-- The side bar that will pop open when adding a new report. -->
+<link href="/assets/newreportform.css" rel="stylesheet" />
+<div id="new-crime-report" class="animate-show" ng-show="shownewform">
+	<form name="crimereportform" novalidate ng-submit="signupForm()" >
+		<fieldset>
+			<legend>New Report</legend>
+			<p>
+				<label>Your Name</label>
+				<input name="user" ng-model="crimereport.user" placeholder="Full Name ..." type="text" required ><br>
+				<small ng-show="crimereportform.user.$error.required && crimereportform.user.$dirty">Name required.</small>
+			</p>
+			<p>
+				<label>What's happening?</label>
+				<textarea name="body" ng-model="crimereport.body" required placeholder="Describe what's happening..."></textarea><br>
+				<small ng-show="crimereportform.body.$error.required && crimereportform.body.$dirty">Text required.</small>
+			</p>
+			<p>
+				<label>Address?</label>
+				<input name="address" ng-model="crimereport.address" placeholder="City, State ..." required type="text"><br>
+				<small ng-show="crimereportform.address.$dirty && crimereportform.address.$error.required">Address required.</small>
+			</p>
+			<table style="width:100%;border:0px;background:rgba(0,0,0,0);"><tr>
+				<td style="background: rgba(0,0,0,0);">
+					<button class="actionbutton" type="submit" ng-disabled="crimereportform.$invalid">Report</button>
+				</td>
+				<td style="background: rgba(0,0,0,0); width:1px;">
+					<label class="actionbutton" ng-click="switchBtnText()">X</label>
+				</td></tr>
+			</table>
+		</fieldset>
+	</form>
+</div>
+
+<!-- The Angular table that lists results. -->
+<div id="reportsdiv">
+	<table class="summary">
+		<tr>
+			<th ng-click="sortField = 'user'; reverse = !reverse">User</th>
+			<th ng-click="sortField = 'body'; reverse = !reverse">Text</th>
+			<th ng-click="sortField = 'address'; reverse = !reverse">Location</th>
+			<th>Actions</th>
+		</tr>
+		<tr ng-repeat="crime_report in crime_reports | filter:results | orderBy:sortField:reverse ">
+			<td> {{crime_report.user}} </td>
+			<td><a ng-click="viewReport(crime_report)">{{crime_report.body}} </a></td>
+			<td >{{crime_report.address}}</td>
+			<td style="text-align:center;"><label class="deletebtn actionbutton" ng-click="deleteReport(crime_report.id, $index)" title="Delete this crime report!">X</label></td>
+		</tr>
+	</table>
+</div>
+
+
+<!-- This table holds the Google Maps and it's associated data -->
+<table>
+	<tr>
+		<td>
+			<!-- The map that will display all results that are shown in the above page.  -->
+			<google-map
+			center="map.center"
+			zoom="map.zoom" 
+			draggable="true"
+			control="map.control"
+			dragging="map.dragging"
+			options="map.options"
+			events="map.mapevents">
+			<marker ng-repeat="cr in crime_reports | filter:results" 
+			coords="{latitude: cr.latitude, longitude: cr.longitude}" 
+			options="{title:cr.body, animation:google.maps.Animation.DROP}"
+			events="map.events"> </marker>
+			</google-map>
+		</td>
+		<td>
+			<!-- This data that we need to pull from the map to query our database -->
+			<fieldset class="mapvaluesfieldset" >
+				<legend>Map Details</legend>
+				<p>
+					<label><strong>Clicked Position: </strong> </label>
+					<label>{{mapvals.mapClickedValue}}</label>
+				</p>
+				<p>
+					<label><strong>Radius: </strong></label>
+					<label><span ng-bind="mapvals.radius"></span> mi</label>
+				</p>
+				<p>
+					<label><strong>Start Date:</strong></label>
+					<input ng-model="mapvals.date" type="datetime-local" value="{{mapvals.date}}" />
+				</p>
+				<p>
+					<label><strong>Time Window:</strong > <span ng-bind="mapvals.window"></span> </label>
+					<br>0<input ng-model="mapvals.window" type="range" name="time" min="0" max="60" step="5" value="{{mapvals.window}}">60
+					<br><small>This is the amount of time before and after the time.</small> 
+				</p>
+			</fieldset>
+		</td>
+	</tr>
+</table>

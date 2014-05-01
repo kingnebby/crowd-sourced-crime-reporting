@@ -1,0 +1,13 @@
+<div >
+	<table id="singlereport">
+		<tr>
+			<th>Field</th>
+			<th>Data</th>
+		</tr>
+		<tr ng-repeat="(key, prop) in report">
+			<td style="font-variant: small-caps;">{{ key | capitalize }}</td>
+			<td ng-if="isDate(key, prop)">{{prop | date:'MMM dd yyyy HH:mm' }}</td>
+			<td ng-if="!isDate(key, prop)">{{ prop }}</td>
+		</tr>
+	</table>
+</div>
