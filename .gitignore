@@ -16,3 +16,5 @@
 /tmp
 /doc
 /app/assets/javascripts/angular/angular*
+*sublime-project
+*sublime-workspace
